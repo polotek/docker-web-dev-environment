@@ -1,0 +1,21 @@
+version: '3.7'
+
+services:
+  db:
+    image: postgres
+    volumes:
+      - type: bind
+        source: ~/.data/postgres/data
+        target: /var/lib/postgresql/data
+  web:
+    build: .
+    command: python manage.py runserver 0.0.0.0:8000
+    env_file: .env
+    volumes:
+      - type: bind
+        source: .
+        target: /var/connections
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
