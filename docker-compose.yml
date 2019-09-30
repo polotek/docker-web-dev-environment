@@ -5,16 +5,18 @@ services:
     image: postgres
     volumes:
       - type: bind
-        source: ~/.data/postgres/data
+        source: ~/.data/postgresql/connections/data
         target: /var/lib/postgresql/data
   web:
     build: .
-    command: python manage.py runserver 0.0.0.0:8000
+    command: $PROJECT_ROOT/$PYTHON_BIN_PATH/python manage.py runserver 0.0.0.0:8000
     env_file: .env
     volumes:
       - type: bind
         source: .
         target: /var/connections
+      - type: volume
+        target: /var/connections/.venv
     ports:
       - "8000:8000"
     depends_on:
