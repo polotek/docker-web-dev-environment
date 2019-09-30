@@ -1,9 +1,17 @@
 # local
-if [ -d ~.venv ] ; then
-    python3 -m venv ~/.venv/connections
+if [ ! -f .env ] ; then
+    cp ./env.template ./.env
 fi
 
-source ~/.venv/connections/bin/activate && \
+if [ ! -d ./.venv ] ; then
+    python3 -m venv ./.venv
+fi
+
+if [ ! -d ~/.data/postgresql/data ] ; then
+    mkdir -p ~/.data/postgresql/data
+fi
+
+source ./.venv/bin/activate && \
     pip install -U pip && \
     pip install -r requirements-lock.txt
 
@@ -11,4 +19,4 @@ source ~/.venv/connections/bin/activate && \
 docker-compose pull && \
     docker-compose build && \
     docker-compose up -d db && \
-    docker-compose run --rm --entrypoint "/var/connections/.venv/bin/python" web manage.py migrate
+    docker-compose run --rm --entrypoint "/var/app/.venv/bin/python" web manage.py migrate

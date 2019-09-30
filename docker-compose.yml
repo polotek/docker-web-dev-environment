@@ -5,7 +5,7 @@ services:
     image: postgres
     volumes:
       - type: bind
-        source: ~/.data/postgresql/connections/data
+        source: ~/.data/postgresql/data
         target: /var/lib/postgresql/data
   web:
     build: .
@@ -14,9 +14,9 @@ services:
     volumes:
       - type: bind
         source: .
-        target: /var/connections
+        target: /var/app
       - type: volume
-        target: /var/connections/.venv
+        target: /var/app/.venv
     ports:
       - "8000:8000"
     depends_on:

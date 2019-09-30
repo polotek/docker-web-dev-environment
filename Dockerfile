@@ -1,6 +1,6 @@
 FROM python:3.7
 
-ENV PROJECT_ROOT=/var/connections
+ENV PROJECT_ROOT=/var/app
 
 RUN mkdir $PROJECT_ROOT
 WORKDIR $PROJECT_ROOT
