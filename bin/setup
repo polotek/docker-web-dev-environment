@@ -1,0 +1,14 @@
+# local
+if [ -d ~.venv ] ; then
+    python3 -m venv ~/.venv/connections
+fi
+
+source ~/.venv/connections/bin/activate && \
+    pip install -U pip && \
+    pip install -r requirements-lock.txt
+
+# docker
+docker-compose pull && \
+    docker-compose build && \
+    docker-compose up -d db && \
+    docker-compose run --rm --entrypoint "/var/connections/.venv/bin/python" web manage.py migrate
