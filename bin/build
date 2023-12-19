@@ -17,6 +17,4 @@ source ./.venv/bin/activate && \
 
 # docker
 docker-compose pull && \
-    docker-compose build && \
-    docker-compose up -d db && \
-    docker-compose run --rm --entrypoint "/var/app/.venv/bin/python" web manage.py migrate
+    docker-compose build
